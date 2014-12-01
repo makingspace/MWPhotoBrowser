@@ -55,6 +55,7 @@ typedef void(^onTrashHandler)(void);
 @property (nonatomic) BOOL startOnGrid;
 @property (nonatomic) BOOL changeNavigationBarApperance;
 @property (nonatomic, strong) UIColor *toolbarBarTintColor;
+@property (nonatomic, strong) UIColor *toolbarTintColor;
 @property (nonatomic) NSUInteger delayToHideElements;
 @property (nonatomic, readonly) NSUInteger currentIndex;
 @property (nonatomic, copy) onCameraHandler cameraHandler;

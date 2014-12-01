@@ -162,7 +162,7 @@
 	
     // Toolbar
     _toolbar = [[UIToolbar alloc] initWithFrame:[self frameForToolbarAtOrientation:self.interfaceOrientation]];
-    _toolbar.tintColor = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7") ? [UIColor whiteColor] : nil;
+    _toolbar.tintColor = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7") ? self.toolbarTintColor : nil;
     if ([_toolbar respondsToSelector:@selector(setBarTintColor:)]) {
         _toolbar.barTintColor = self.toolbarBarTintColor;
     }
