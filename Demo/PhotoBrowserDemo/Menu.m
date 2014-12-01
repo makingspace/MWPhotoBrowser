@@ -1035,7 +1035,8 @@
 	
 	// Create browser
 	MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
-    browser.displayActionButton = displayActionButton;
+    browser.displayActionButton = NO;
+    browser.displayTrashButton = YES;
     browser.displayNavArrows = displayNavArrows;
     browser.displaySelectionButtons = displaySelectionButtons;
     browser.alwaysShowControls = displaySelectionButtons;
@@ -1043,9 +1044,10 @@
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
     browser.wantsFullScreenLayout = YES;
 #endif
-    browser.enableGrid = enableGrid;
+    browser.enableGrid = NO;
     browser.startOnGrid = startOnGrid;
     browser.enableSwipeToDismiss = YES;
+    browser.enableCamera = YES;
     [browser setCurrentPhotoIndex:0];
     
     // Reset selections

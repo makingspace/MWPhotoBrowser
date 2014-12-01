@@ -39,19 +39,26 @@
 
 @end
 
+typedef void(^onCameraHandler)(void);
+typedef void(^onTrashHandler)(void);
 @interface MWPhotoBrowser : UIViewController <UIScrollViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
-
 @property (nonatomic, weak) IBOutlet id<MWPhotoBrowserDelegate> delegate;
 @property (nonatomic) BOOL zoomPhotosToFill;
 @property (nonatomic) BOOL displayNavArrows;
 @property (nonatomic) BOOL displayActionButton;
+@property (nonatomic) BOOL displayTrashButton;
 @property (nonatomic) BOOL displaySelectionButtons;
 @property (nonatomic) BOOL alwaysShowControls;
 @property (nonatomic) BOOL enableGrid;
 @property (nonatomic) BOOL enableSwipeToDismiss;
+@property (nonatomic, assign) BOOL enableCamera;
 @property (nonatomic) BOOL startOnGrid;
+@property (nonatomic) BOOL changeNavigationBarApperance;
+@property (nonatomic, strong) UIColor *toolbarBarTintColor;
 @property (nonatomic) NSUInteger delayToHideElements;
 @property (nonatomic, readonly) NSUInteger currentIndex;
+@property (nonatomic, copy) onCameraHandler cameraHandler;
+@property (nonatomic, copy) onTrashHandler trashHandler;
 
 // Init
 - (id)initWithPhotos:(NSArray *)photosArray  __attribute__((deprecated("Use initWithDelegate: instead"))); // Depreciated

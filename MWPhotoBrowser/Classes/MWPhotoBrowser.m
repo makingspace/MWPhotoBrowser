@@ -164,7 +164,7 @@
     _toolbar = [[UIToolbar alloc] initWithFrame:[self frameForToolbarAtOrientation:self.interfaceOrientation]];
     _toolbar.tintColor = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7") ? [UIColor whiteColor] : nil;
     if ([_toolbar respondsToSelector:@selector(setBarTintColor:)]) {
-        _toolbar.barTintColor = nil;
+        _toolbar.barTintColor = self.toolbarBarTintColor;
     }
     if ([[UIToolbar class] respondsToSelector:@selector(appearance)]) {
         [_toolbar setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
@@ -186,6 +186,10 @@
     }
     if (self.displayActionButton) {
         _actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionButtonPressed:)];
+    }
+    
+    if (self.displayTrashButton) {
+        _actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(onTrashButton)];
     }
     
     // Update
@@ -258,7 +262,12 @@
         NSString *buttonName = @"UIBarButtonItemGrid";
         if (SYSTEM_VERSION_LESS_THAN(@"7")) buttonName = @"UIBarButtonItemGridiOS6";
         [items addObject:[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"MWPhotoBrowser.bundle/images/%@.png", buttonName]] style:UIBarButtonItemStylePlain target:self action:@selector(showGridAnimated)]];
-    } else {
+    }
+    else if (self.enableCamera) {
+        hasItems = YES;
+        [items addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(onCameraButton)]];
+    }
+    else {
         [items addObject:fixedSpace];
     }
 
@@ -307,6 +316,18 @@
     [self tilePages];
     _performingLayout = NO;
     
+}
+
+- (void)onCameraButton {
+    if (self.cameraHandler) {
+        self.cameraHandler();
+    }
+}
+
+- (void)onTrashButton {
+    if (self.trashHandler) {
+        self.trashHandler();
+    }
 }
 
 // Release any retained subviews of the main view.
@@ -378,7 +399,10 @@
     if (!_viewIsActive && [self.navigationController.viewControllers objectAtIndex:0] != self) {
         [self storePreviousNavBarAppearance];
     }
-    [self setNavBarAppearance:animated];
+    
+    if (self.changeNavigationBarApperance) {
+        [self setNavBarAppearance:animated];
+    }
     
     // Update UI
 	[self hideControlsAfterDelay];
