@@ -303,12 +303,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     
 }
 
-- (void)onCameraButton {
-    if (self.cameraHandler) {
-        self.cameraHandler();
-    }
-}
-
 - (void)onTrashButton {
     if (self.trashHandler) {
         self.trashHandler();
